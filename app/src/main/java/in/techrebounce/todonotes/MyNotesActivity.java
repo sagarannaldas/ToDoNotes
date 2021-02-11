@@ -12,16 +12,24 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+
+import in.techrebounce.todonotes.adapter.NotesAdapter;
+import in.techrebounce.todonotes.model.Notes;
 
 public class MyNotesActivity extends AppCompatActivity {
 
     private static final String TAG = "MyNotesActivity";
     String fullName;
     FloatingActionButton fabAddNotes;
-    TextView textViewTitle, textViewDescription;
     SharedPreferences sharedPreferences;
+    RecyclerView recyclerViewNotes;
+    ArrayList<Notes> notesList =  new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +63,7 @@ public class MyNotesActivity extends AppCompatActivity {
 
     private void bindViews() {
         fabAddNotes = findViewById(R.id.fabAddNotes);
-        textViewTitle = findViewById(R.id.textViewTitle);
-        textViewDescription = findViewById(R.id.textViewDescription);
+        recyclerViewNotes = findViewById(R.id.recyclerViewNotes);
     }
 
     private void setUpDialogBox() {
@@ -73,12 +80,26 @@ public class MyNotesActivity extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textViewTitle.setText(editTextTitle.getText().toString());
-                textViewDescription.setText(editTextDescription.getText().toString());
+                String title = editTextTitle.getText().toString();
+                String description = editTextDescription.getText().toString();
+                Notes notes = new Notes();
+                notes.setTitle(title);
+                notes.setDescription(description);
+                notesList.add(notes);
+                
+                setupRecyclerView();
                 dialog.hide();
             }
         });
 
         dialog.show();
+    }
+
+    private void setupRecyclerView() {
+        NotesAdapter notesAdapter = new NotesAdapter(notesList);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyNotesActivity.this);
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerViewNotes.setLayoutManager(linearLayoutManager);
+        recyclerViewNotes.setAdapter(notesAdapter);
     }
 }
