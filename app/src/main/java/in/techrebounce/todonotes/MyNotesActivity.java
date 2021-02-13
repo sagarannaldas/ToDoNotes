@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +20,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 import in.techrebounce.todonotes.adapter.NotesAdapter;
+import in.techrebounce.todonotes.clicklisteners.ItemClickListener;
 import in.techrebounce.todonotes.model.Notes;
+
+import static in.techrebounce.todonotes.AppConstant.DESCRIPTION;
+import static in.techrebounce.todonotes.AppConstant.TITLE;
 
 public class MyNotesActivity extends AppCompatActivity {
 
@@ -29,7 +33,7 @@ public class MyNotesActivity extends AppCompatActivity {
     FloatingActionButton fabAddNotes;
     SharedPreferences sharedPreferences;
     RecyclerView recyclerViewNotes;
-    ArrayList<Notes> notesList =  new ArrayList<>();
+    ArrayList<Notes> notesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +60,8 @@ public class MyNotesActivity extends AppCompatActivity {
     private void getIntentData() {
         Intent intent = getIntent();
         fullName = intent.getStringExtra(AppConstant.FULL_NAME);
-        if(TextUtils.isEmpty(fullName)) {
-            fullName = sharedPreferences.getString(PrefConstant.FULL_NAME,"");
+        if (TextUtils.isEmpty(fullName)) {
+            fullName = sharedPreferences.getString(PrefConstant.FULL_NAME, "");
         }
     }
 
@@ -82,11 +86,15 @@ public class MyNotesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String title = editTextTitle.getText().toString();
                 String description = editTextDescription.getText().toString();
-                Notes notes = new Notes();
-                notes.setTitle(title);
-                notes.setDescription(description);
-                notesList.add(notes);
-                
+                if(!TextUtils.isEmpty(title) && !TextUtils.isEmpty(description)) {
+                    Notes notes = new Notes();
+                    notes.setTitle(title);
+                    notes.setDescription(description);
+                    notesList.add(notes);
+                } else {
+                    Toast.makeText(MyNotesActivity.this, "Fields Can't Be Empty", Toast.LENGTH_SHORT).show();
+                }
+
                 setupRecyclerView();
                 dialog.hide();
             }
@@ -96,7 +104,19 @@ public class MyNotesActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        NotesAdapter notesAdapter = new NotesAdapter(notesList);
+
+        // interface
+        ItemClickListener itemClickListener = new ItemClickListener() {
+            @Override
+            public void onClick(Notes notes) {
+                Intent intent = new Intent(MyNotesActivity.this, DetailActivity.class);
+                intent.putExtra(TITLE, notes.getTitle());
+                intent.putExtra(DESCRIPTION, notes.getDescription());
+                startActivity(intent);
+
+            }
+        };
+        NotesAdapter notesAdapter = new NotesAdapter(notesList, itemClickListener);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MyNotesActivity.this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerViewNotes.setLayoutManager(linearLayoutManager);

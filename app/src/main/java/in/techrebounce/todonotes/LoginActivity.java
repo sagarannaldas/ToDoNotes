@@ -1,7 +1,5 @@
 package in.techrebounce.todonotes;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import static in.techrebounce.todonotes.PrefConstant.IS_LOGGED_IN;
 import static in.techrebounce.todonotes.PrefConstant.SHARED_PREFERENCE_NAME;
@@ -39,14 +39,14 @@ public class LoginActivity extends AppCompatActivity {
                 String fullName = editTextFullName.getText().toString();
                 String userName = editTextUserName.getText().toString();
 
-                if(!TextUtils.isEmpty(fullName) && !TextUtils.isEmpty(userName)) {
+                if (!TextUtils.isEmpty(fullName) && !TextUtils.isEmpty(userName)) {
                     Intent intent = new Intent(LoginActivity.this, MyNotesActivity.class);
                     intent.putExtra(AppConstant.FULL_NAME, fullName);
                     startActivity(intent);
                     saveLoginStatus();
                     savefullName(fullName);
                 } else {
-                    Toast.makeText(LoginActivity.this, "Username and fullname cant be empty",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Username and fullname cant be empty", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void savefullName(String fullName) {
         editor = sharedPreferences.edit();
-        editor.putString(PrefConstant.FULL_NAME,fullName);
+        editor.putString(PrefConstant.FULL_NAME, fullName);
         editor.apply();
     }
 
@@ -67,6 +67,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void setupSharedPreferences() {
-        sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_NAME,MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_NAME, MODE_PRIVATE);
     }
 }

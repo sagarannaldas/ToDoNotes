@@ -11,14 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import in.techrebounce.todonotes.R;
+import in.techrebounce.todonotes.clicklisteners.ItemClickListener;
 import in.techrebounce.todonotes.model.Notes;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
-    private List<Notes> listNotes;
+    private final List<Notes> listNotes;
+    private final ItemClickListener itemClickListener;
 
-    public NotesAdapter(List<Notes> notes) {
+    public NotesAdapter(List<Notes> notes, ItemClickListener itemClickListener) {
         this.listNotes = notes;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -37,6 +40,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         String description = note.getDescription();
         holder.textViewTitle.setText(title);
         holder.textViewDescription.setText(description);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemClickListener.onClick(note);
+            }
+        });
     }
 
     @Override
