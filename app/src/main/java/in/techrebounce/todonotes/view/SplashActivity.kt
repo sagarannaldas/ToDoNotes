@@ -1,5 +1,7 @@
-package `in`.techrebounce.todonotes
+package `in`.techrebounce.todonotes.view
 
+import `in`.techrebounce.todonotes.PrefConstant
+import `in`.techrebounce.todonotes.R
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle

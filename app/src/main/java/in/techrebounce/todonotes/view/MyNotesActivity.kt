@@ -1,15 +1,15 @@
-package `in`.techrebounce.todonotes
+package `in`.techrebounce.todonotes.view
 
 import `in`.techrebounce.todonotes.AppConstant.DESCRIPTION
 import `in`.techrebounce.todonotes.AppConstant.TITLE
 import `in`.techrebounce.todonotes.PrefConstant.FULL_NAME
 import `in`.techrebounce.todonotes.PrefConstant.SHARED_PREFERENCE_NAME
+import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.adapter.NotesAdapter
 import `in`.techrebounce.todonotes.clicklisteners.ItemClickListener
 import `in`.techrebounce.todonotes.model.Notes
 import android.content.Intent
 import android.content.SharedPreferences
-import android.icu.text.CaseMap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

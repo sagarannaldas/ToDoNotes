@@ -1,5 +1,6 @@
-package `in`.techrebounce.todonotes
+package `in`.techrebounce.todonotes.view
 
+import `in`.techrebounce.todonotes.R
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
