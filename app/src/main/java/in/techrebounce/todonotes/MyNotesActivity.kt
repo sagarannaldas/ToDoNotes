@@ -25,11 +25,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 public class MyNotesActivity : AppCompatActivity() {
 
     private val TAG = "MyNotesActivity"
-    lateinit var fullName : String
+    var fullName : String = ""
     lateinit var fabAddNotes: FloatingActionButton
     lateinit var sharedPreferences: SharedPreferences
     lateinit var recyclerViewNotes : RecyclerView
-    lateinit var notesList : ArrayList<Notes>
+    var notesList = ArrayList<Notes>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
