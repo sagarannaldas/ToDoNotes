@@ -1,4 +1,4 @@
-package `in`.techrebounce.todonotes
+package `in`.techrebounce.todonotes.utils
 
 object AppConstant {
     const val FULL_NAME = "full_name"

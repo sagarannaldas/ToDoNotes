@@ -1,6 +1,6 @@
 package `in`.techrebounce.todonotes.view
 
-import `in`.techrebounce.todonotes.AppConstant
+import `in`.techrebounce.todonotes.utils.AppConstant
 import `in`.techrebounce.todonotes.R
 import android.os.Bundle
 import android.widget.TextView

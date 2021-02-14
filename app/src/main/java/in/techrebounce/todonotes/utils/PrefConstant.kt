@@ -1,4 +1,4 @@
-package `in`.techrebounce.todonotes
+package `in`.techrebounce.todonotes.utils
 
 object PrefConstant {
     const val SHARED_PREFERENCE_NAME = "notes_app_pref"

@@ -1,8 +1,8 @@
 package `in`.techrebounce.todonotes.view
 
-import `in`.techrebounce.todonotes.PrefConstant.FULL_NAME
-import `in`.techrebounce.todonotes.PrefConstant.IS_LOGGED_IN
-import `in`.techrebounce.todonotes.PrefConstant.SHARED_PREFERENCE_NAME
+import `in`.techrebounce.todonotes.utils.PrefConstant.FULL_NAME
+import `in`.techrebounce.todonotes.utils.PrefConstant.IS_LOGGED_IN
+import `in`.techrebounce.todonotes.utils.PrefConstant.SHARED_PREFERENCE_NAME
 import `in`.techrebounce.todonotes.R
 import android.content.Intent
 import android.content.SharedPreferences

@@ -1,9 +1,9 @@
 package `in`.techrebounce.todonotes.view
 
-import `in`.techrebounce.todonotes.AppConstant.DESCRIPTION
-import `in`.techrebounce.todonotes.AppConstant.TITLE
-import `in`.techrebounce.todonotes.PrefConstant.FULL_NAME
-import `in`.techrebounce.todonotes.PrefConstant.SHARED_PREFERENCE_NAME
+import `in`.techrebounce.todonotes.utils.AppConstant.DESCRIPTION
+import `in`.techrebounce.todonotes.utils.AppConstant.TITLE
+import `in`.techrebounce.todonotes.utils.PrefConstant.FULL_NAME
+import `in`.techrebounce.todonotes.utils.PrefConstant.SHARED_PREFERENCE_NAME
 import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.adapter.NotesAdapter
 import `in`.techrebounce.todonotes.clicklisteners.ItemClickListener
