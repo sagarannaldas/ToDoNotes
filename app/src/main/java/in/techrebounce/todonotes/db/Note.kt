@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 // structure of table
 @Entity(tableName = "notesData")
-data class Notes (
+data class Note (
         @PrimaryKey(autoGenerate = true)
         var id : Int? = null,
         @ColumnInfo(name = "title")

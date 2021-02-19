@@ -2,7 +2,7 @@ package `in`.techrebounce.todonotes.adapter
 
 import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.clicklisteners.ItemClickListener
-import `in`.techrebounce.todonotes.db.Notes
+import `in`.techrebounce.todonotes.db.Note
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,7 @@ import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class NotesAdapter(val list: List<Notes>, val itemClickListener: ItemClickListener ) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
+class NotesAdapter(val list: List<Note>, val itemClickListener: ItemClickListener ) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
     private  val TAG = "NotesAdapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -8,14 +8,14 @@ import androidx.room.OnConflictStrategy.REPLACE
 interface NotesDao {
 
     @Query("SELECT * from notesData")
-    fun getAll() : List<Notes>
+    fun getAll(): List<Note>
 
     @Insert(onConflict = REPLACE)
-    fun insert(notes: Notes)
+    fun insert(note: Note)
 
     @Update
-    fun updateNotes(notes: Notes)
+    fun updateNotes(note: Note)
 
     @Delete
-    fun deleteNotes(notes: Notes)
+    fun deleteNotes(note: Note)
 }

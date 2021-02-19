@@ -1,14 +1,16 @@
 package `in`.techrebounce.todonotes.view
 
 import `in`.techrebounce.todonotes.NotesApp
+import `in`.techrebounce.todonotes.R
+import `in`.techrebounce.todonotes.adapter.NotesAdapter
+import `in`.techrebounce.todonotes.clicklisteners.ItemClickListener
+import `in`.techrebounce.todonotes.db.Note
+import `in`.techrebounce.todonotes.utils.AppConstant
 import `in`.techrebounce.todonotes.utils.AppConstant.DESCRIPTION
 import `in`.techrebounce.todonotes.utils.AppConstant.TITLE
 import `in`.techrebounce.todonotes.utils.PrefConstant.FULL_NAME
 import `in`.techrebounce.todonotes.utils.PrefConstant.SHARED_PREFERENCE_NAME
-import `in`.techrebounce.todonotes.R
-import `in`.techrebounce.todonotes.adapter.NotesAdapter
-import `in`.techrebounce.todonotes.clicklisteners.ItemClickListener
-import `in`.techrebounce.todonotes.db.Notes
+import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -27,11 +29,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 public class MyNotesActivity : AppCompatActivity() {
 
     private val TAG = "MyNotesActivity"
-    var fullName : String = ""
+    val ADD_NOTES_CODE = 100
+    var fullName: String = ""
     lateinit var fabAddNotes: FloatingActionButton
     lateinit var sharedPreferences: SharedPreferences
-    lateinit var recyclerViewNotes : RecyclerView
-    var notesList = ArrayList<Notes>()
+    lateinit var recyclerViewNotes: RecyclerView
+    var notesList = ArrayList<Note>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +46,6 @@ public class MyNotesActivity : AppCompatActivity() {
         setupRecyclerView()
 
         supportActionBar?.title = fullName
-
     }
 
     private fun getDataFromDataBase() {
@@ -59,7 +61,10 @@ public class MyNotesActivity : AppCompatActivity() {
 
         val clickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
-                setupDialogBox()
+//                setupDialogBox()
+
+                val intent = Intent(this@MyNotesActivity, AddNotesActivity::class.java)
+                startActivityForResult(intent, ADD_NOTES_CODE)
             }
 
         }
@@ -82,12 +87,12 @@ public class MyNotesActivity : AppCompatActivity() {
             override fun onClick(v: View?) {
                 val title = editTextTitle.text.toString()
                 val description = editTextDescription.text.toString()
-                if(title.isNotEmpty() && description.isNotEmpty()) {
-                    val notes = Notes(title = title, description = description)
+                if (title.isNotEmpty() && description.isNotEmpty()) {
+                    val notes = Note(title = title, description = description)
                     addNotesToDb(notes)
                     notesList.add(notes)
                 } else {
-                    Toast.makeText(this@MyNotesActivity,"Fields Can't Be Empty",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MyNotesActivity, "Fields Can't Be Empty", Toast.LENGTH_SHORT).show()
                 }
                 setupRecyclerView()
                 dialog.hide()
@@ -98,27 +103,27 @@ public class MyNotesActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun addNotesToDb(notes: Notes) {
+    private fun addNotesToDb(note: Note) {
         // insert into db
         val notesApp = applicationContext as NotesApp
         val notesDao = notesApp.getNotesDb().notesDao()
-        notesDao.insert(notes)
+        notesDao.insert(note)
 
     }
 
     private fun setupRecyclerView() {
         val itemClickListener = object : ItemClickListener {
-            override fun onClick(notes: Notes) {
+            override fun onClick(note: Note) {
                 val intent = Intent(this@MyNotesActivity, DetailActivity::class.java)
-                intent.putExtra(TITLE,notes.title)
-                intent.putExtra(DESCRIPTION, notes.description)
+                intent.putExtra(TITLE, note.title)
+                intent.putExtra(DESCRIPTION, note.description)
                 startActivity(intent)
             }
 
-            override fun onUpdate(notes: Notes) {
+            override fun onUpdate(note: Note) {
                 //update the value
-                Log.d(TAG, "onUpdate: ${notes.isTaskCompleted.toString()}")
-                updateNotes(notes)
+                Log.d(TAG, "onUpdate: ${note.isTaskCompleted.toString()}")
+                updateNotes(note)
             }
         }
 
@@ -129,13 +134,12 @@ public class MyNotesActivity : AppCompatActivity() {
         recyclerViewNotes.adapter = notesAdapter
 
 
-
     }
 
-    private fun updateNotes(notes: Notes) {
+    private fun updateNotes(note: Note) {
         val notesApp = applicationContext as NotesApp
         val notesDao = notesApp.getNotesDb().notesDao()
-        notesDao.updateNotes(notes)
+        notesDao.updateNotes(note)
     }
 
     private fun setupSharedPreference() {
@@ -144,11 +148,25 @@ public class MyNotesActivity : AppCompatActivity() {
 
     private fun getIntentData() {
         val intent = intent
-        if(intent.hasExtra(FULL_NAME)) {
+        if (intent.hasExtra(FULL_NAME)) {
             fullName = intent.getStringExtra(FULL_NAME)
         }
-        if(fullName.isEmpty()) {
-            fullName = sharedPreferences.getString(FULL_NAME,"").toString()
+        if (fullName.isEmpty()) {
+            fullName = sharedPreferences.getString(FULL_NAME, "").toString()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == ADD_NOTES_CODE) {
+            if(resultCode == Activity.RESULT_OK) {
+                val title  = data?.getStringExtra(AppConstant.TITLE)
+                val description = data?.getStringExtra(AppConstant.DESCRIPTION)
+                Log.d(TAG, "onActivityResult: $title  $description")
+
+                val notesApp =  applicationContext as NotesApp
+                val notesDao = notesApp.getNotesDb().notesDao()
+            }
         }
     }
 }
