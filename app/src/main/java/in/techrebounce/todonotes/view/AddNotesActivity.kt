@@ -1,21 +1,31 @@
 package `in`.techrebounce.todonotes.view
 
+import `in`.techrebounce.todonotes.BuildConfig
 import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.utils.AppConstant
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AddNotesActivity : AppCompatActivity() {
 
-    lateinit var editTextTitle : EditText
-    lateinit var editTextDescription : EditText
-    lateinit var buttonSubmit : Button
+    lateinit var editTextTitle: EditText
+    lateinit var editTextDescription: EditText
+    lateinit var buttonSubmit: Button
+    lateinit var imageViewAdd: ImageView
+    val REQUEST_CODE_GALLERY = 2;
+    val REQUEST_CODE_CAMERA = 1;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +38,7 @@ class AddNotesActivity : AppCompatActivity() {
         editTextTitle = findViewById(R.id.editTextTitle)
         editTextDescription =  findViewById(R.id.editTextDescription)
         buttonSubmit = findViewById(R.id.buttonSubmit)
+        imageViewAdd = findViewById(R.id.imageViewAdd)
     }
 
     private fun clickListener() {
@@ -48,5 +59,65 @@ class AddNotesActivity : AppCompatActivity() {
             }
         }
         buttonSubmit.setOnClickListener(clickListener)
+
+        imageViewAdd.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                setupDialog()
+            }
+
+        })
+    }
+
+    private fun setupDialog() {
+        val view = LayoutInflater.from(this@AddNotesActivity).inflate(R.layout.dialog_selector, null)
+        val textViewCamera = view.findViewById<TextView>(R.id.textViewCamera)
+        val textViewGallery = view.findViewById<TextView>(R.id.textViewGallery)
+        val dialog = AlertDialog.Builder(this)
+                .setView(view)
+                .setCancelable(true)
+                .create()
+
+        textViewCamera.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val intentTakePicture = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                if (intentTakePicture.resolveActivity(packageManager) != null) {
+                    var photoFile: File? = null
+                    try {
+                        photoFile = createImageFile()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                    if (photoFile != null) {
+                        val photoUri = FileProvider.getUriForFile(this@AddNotesActivity,
+                                BuildConfig.APPLICATION_ID + ".provider",
+                                photoFile)
+                        intentTakePicture.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                        startActivityForResult(intentTakePicture, REQUEST_CODE_CAMERA)
+                    }
+                }
+                dialog.hide()
+            }
+
+        })
+
+        textViewGallery.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(intent, REQUEST_CODE_GALLERY)
+                dialog.hide()
+
+            }
+
+        })
+
+        dialog.show()
+
+    }
+
+    private fun createImageFile(): File? {
+        val timeStamp = SimpleDateFormat("yyyyMMddHHmmss").format(Date())
+        val fileName = "JPEG" + timeStamp + "_"
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(fileName, ".jpg", storageDir)
     }
 }

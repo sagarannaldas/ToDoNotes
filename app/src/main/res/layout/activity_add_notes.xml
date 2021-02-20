@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewAddNotes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Notes"
@@ -16,6 +16,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageViewAdd"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="50dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintEnd_toEndOf="@+id/textViewAddNotes"
+        app:layout_constraintStart_toStartOf="@+id/textViewAddNotes"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAddNotes" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/container_title"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -25,7 +35,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:hint="Title"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAdd">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextTitle"
