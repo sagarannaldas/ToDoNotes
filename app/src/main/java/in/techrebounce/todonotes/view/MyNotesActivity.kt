@@ -5,7 +5,6 @@ import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.adapter.NotesAdapter
 import `in`.techrebounce.todonotes.clicklisteners.ItemClickListener
 import `in`.techrebounce.todonotes.db.Note
-import `in`.techrebounce.todonotes.utils.AppConstant
 import `in`.techrebounce.todonotes.utils.AppConstant.DESCRIPTION
 import `in`.techrebounce.todonotes.utils.AppConstant.TITLE
 import `in`.techrebounce.todonotes.utils.PrefConstant.FULL_NAME
@@ -15,12 +14,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,8 +22,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 public class MyNotesActivity : AppCompatActivity() {
 
-    private val TAG = "MyNotesActivity"
-    val ADD_NOTES_CODE = 100
+    companion object {
+        private const val TAG = "MyNotesActivity"
+        const val ADD_NOTES_CODE = 100
+    }
+
     var fullName: String = ""
     lateinit var fabAddNotes: FloatingActionButton
     lateinit var sharedPreferences: SharedPreferences
@@ -44,7 +41,11 @@ public class MyNotesActivity : AppCompatActivity() {
         getIntentData()
         getDataFromDataBase()
         setupRecyclerView()
+        setupToolbarText()
 
+    }
+
+    private fun setupToolbarText() {
         supportActionBar?.title = fullName
     }
 
@@ -69,38 +70,6 @@ public class MyNotesActivity : AppCompatActivity() {
 
         }
         fabAddNotes.setOnClickListener(clickListener)
-    }
-
-    private fun setupDialogBox() {
-        val view = LayoutInflater.from(this@MyNotesActivity).inflate(R.layout.add_notes_dialog_layout, null)
-        val editTextTitle = view.findViewById<EditText>(R.id.editTextTitle)
-        val editTextDescription = view.findViewById<EditText>(R.id.editTextDescription)
-        val buttonSubmit = view.findViewById<Button>(R.id.buttonSubmit)
-
-        //dialog
-        val dialog = AlertDialog.Builder(this@MyNotesActivity)
-                .setView(view)
-                .setCancelable(false)
-                .create()
-
-        val clickListener = object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                val title = editTextTitle.text.toString()
-                val description = editTextDescription.text.toString()
-                if (title.isNotEmpty() && description.isNotEmpty()) {
-                    val notes = Note(title = title, description = description)
-                    addNotesToDb(notes)
-                    notesList.add(notes)
-                } else {
-                    Toast.makeText(this@MyNotesActivity, "Fields Can't Be Empty", Toast.LENGTH_SHORT).show()
-                }
-                setupRecyclerView()
-                dialog.hide()
-            }
-
-        }
-        buttonSubmit.setOnClickListener(clickListener)
-        dialog.show()
     }
 
     private fun addNotesToDb(note: Note) {
@@ -147,6 +116,7 @@ public class MyNotesActivity : AppCompatActivity() {
     }
 
     private fun getIntentData() {
+
         val intent = intent
         if (intent.hasExtra(FULL_NAME)) {
             fullName = intent.getStringExtra(FULL_NAME)
@@ -160,13 +130,50 @@ public class MyNotesActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == ADD_NOTES_CODE) {
             if(resultCode == Activity.RESULT_OK) {
-                val title  = data?.getStringExtra(AppConstant.TITLE)
-                val description = data?.getStringExtra(AppConstant.DESCRIPTION)
+                val title = data?.getStringExtra(TITLE)
+                val description = data?.getStringExtra(DESCRIPTION)
                 Log.d(TAG, "onActivityResult: $title  $description")
 
-                val notesApp =  applicationContext as NotesApp
+                val notesApp = applicationContext as NotesApp
                 val notesDao = notesApp.getNotesDb().notesDao()
+                val note = Note(title = title!!, description = description!!)
+                notesList.add(note)
+                notesDao.insert(note)
+                recyclerViewNotes.adapter?.notifyItemChanged(notesList.size - 1)
+
             }
         }
     }
+
+    /*    private fun setupDialogBox() {
+        val view = LayoutInflater.from(this@MyNotesActivity).inflate(R.layout.add_notes_dialog_layout, null)
+        val editTextTitle = view.findViewById<EditText>(R.id.editTextTitle)
+        val editTextDescription = view.findViewById<EditText>(R.id.editTextDescription)
+        val buttonSubmit = view.findViewById<Button>(R.id.buttonSubmit)
+
+        //dialog
+        val dialog = AlertDialog.Builder(this@MyNotesActivity)
+                .setView(view)
+                .setCancelable(false)
+                .create()
+
+        val clickListener = object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                val title = editTextTitle.text.toString()
+                val description = editTextDescription.text.toString()
+                if (title.isNotEmpty() && description.isNotEmpty()) {
+                    val notes = Note(title = title, description = description)
+                    addNotesToDb(notes)
+                    notesList.add(notes)
+                } else {
+                    Toast.makeText(this@MyNotesActivity, "Fields Can't Be Empty", Toast.LENGTH_SHORT).show()
+                }
+                setupRecyclerView()
+                dialog.hide()
+            }
+
+        }
+        buttonSubmit.setOnClickListener(clickListener)
+        dialog.show()
+    }*/
 }

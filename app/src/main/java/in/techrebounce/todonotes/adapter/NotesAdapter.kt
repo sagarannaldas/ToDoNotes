@@ -12,8 +12,8 @@ import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class NotesAdapter(val list: List<Note>, val itemClickListener: ItemClickListener ) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
-    private  val TAG = "NotesAdapter"
+class NotesAdapter(val list: List<Note>, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
+    private val TAG = "NotesAdapter"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.notes_adapter_layout, parent, false)
@@ -47,9 +47,9 @@ class NotesAdapter(val list: List<Note>, val itemClickListener: ItemClickListene
         return list.size
     }
 
-    inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val textViewTitle : TextView = itemView.findViewById(R.id.textViewTitle)
-        val textViewDescription : TextView =  itemView.findViewById(R.id.textViewDescription)
-        val checkboxMarkStatus : CheckBox = itemView.findViewById(R.id.checkboxMarkStatus)
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textViewTitle: TextView = itemView.findViewById(R.id.textViewTitle)
+        val textViewDescription: TextView = itemView.findViewById(R.id.textViewDescription)
+        val checkboxMarkStatus: CheckBox = itemView.findViewById(R.id.checkboxMarkStatus)
     }
 }
