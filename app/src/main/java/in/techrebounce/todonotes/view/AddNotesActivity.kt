@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.bumptech.glide.Glide
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,6 +32,8 @@ class AddNotesActivity : AppCompatActivity() {
     val REQUEST_CODE_GALLERY = 2
     val REQUEST_CODE_CAMERA = 1
     val MY_PERMISSION_CODE = 123
+    var picturePath = ""
+    lateinit var imageLocation: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +44,7 @@ class AddNotesActivity : AppCompatActivity() {
 
     private fun bindViews() {
         editTextTitle = findViewById(R.id.editTextTitle)
-        editTextDescription =  findViewById(R.id.editTextDescription)
+        editTextDescription = findViewById(R.id.editTextDescription)
         buttonSubmit = findViewById(R.id.buttonSubmit)
         imageViewAdd = findViewById(R.id.imageViewAdd)
     }
@@ -50,11 +53,12 @@ class AddNotesActivity : AppCompatActivity() {
         val clickListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
                 val title = editTextTitle.text.toString()
-                val description =  editTextDescription.text.toString()
-                if(title.isNotEmpty() && description.isNotEmpty()) {
+                val description = editTextDescription.text.toString()
+                if (title.isNotEmpty() && description.isNotEmpty()) {
                     val intent = Intent()
                     intent.putExtra(AppConstant.TITLE, title)
                     intent.putExtra(AppConstant.DESCRIPTION, description)
+                    intent.putExtra(AppConstant.IMAGE_PATH, picturePath)
                     setResult(Activity.RESULT_OK, intent)
                     finish()
                 } else {
@@ -131,11 +135,12 @@ class AddNotesActivity : AppCompatActivity() {
                         val photoUri = FileProvider.getUriForFile(this@AddNotesActivity,
                                 BuildConfig.APPLICATION_ID + ".provider",
                                 photoFile)
+                        imageLocation = photoFile
                         intentTakePicture.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+                        dialog.hide()
                         startActivityForResult(intentTakePicture, REQUEST_CODE_CAMERA)
                     }
                 }
-                dialog.hide()
             }
 
         })
@@ -149,9 +154,7 @@ class AddNotesActivity : AppCompatActivity() {
             }
 
         })
-
         dialog.show()
-
     }
 
     private fun createImageFile(): File? {
@@ -159,5 +162,22 @@ class AddNotesActivity : AppCompatActivity() {
         val fileName = "JPEG" + timeStamp + "_"
         val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(fileName, ".jpg", storageDir)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                REQUEST_CODE_CAMERA -> {
+                    picturePath = imageLocation.path.toString()
+                    Glide.with(this).load(imageLocation.absoluteFile).into(imageViewAdd)
+                }
+                REQUEST_CODE_GALLERY -> {
+                    val selectedImage = data?.data
+                    picturePath = selectedImage?.path.toString()
+                    Glide.with(this).load(selectedImage?.path).into(imageViewAdd)
+                }
+            }
+        }
     }
 }

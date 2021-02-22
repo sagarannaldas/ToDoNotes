@@ -32,4 +32,5 @@ ext {
     materialVersion = '1.2.1'
     roomVersion = '2.2.5'
     kotlinVersion = "1.4.30"
+    glideVersion = '4.12.0'
 }

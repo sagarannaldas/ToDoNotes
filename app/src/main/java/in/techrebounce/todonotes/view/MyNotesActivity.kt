@@ -6,6 +6,7 @@ import `in`.techrebounce.todonotes.adapter.NotesAdapter
 import `in`.techrebounce.todonotes.clicklisteners.ItemClickListener
 import `in`.techrebounce.todonotes.db.Note
 import `in`.techrebounce.todonotes.utils.AppConstant.DESCRIPTION
+import `in`.techrebounce.todonotes.utils.AppConstant.IMAGE_PATH
 import `in`.techrebounce.todonotes.utils.AppConstant.TITLE
 import `in`.techrebounce.todonotes.utils.PrefConstant.FULL_NAME
 import `in`.techrebounce.todonotes.utils.PrefConstant.SHARED_PREFERENCE_NAME
@@ -132,11 +133,12 @@ public class MyNotesActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK) {
                 val title = data?.getStringExtra(TITLE)
                 val description = data?.getStringExtra(DESCRIPTION)
+                val imagePath = data?.getStringExtra(IMAGE_PATH)
                 Log.d(TAG, "onActivityResult: $title  $description")
 
                 val notesApp = applicationContext as NotesApp
                 val notesDao = notesApp.getNotesDb().notesDao()
-                val note = Note(title = title!!, description = description!!)
+                val note = Note(title = title!!, description = description!!, imagePath = imagePath!!)
                 notesList.add(note)
                 notesDao.insert(note)
                 recyclerViewNotes.adapter?.notifyItemChanged(notesList.size - 1)
