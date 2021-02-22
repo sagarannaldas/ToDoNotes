@@ -6,6 +6,7 @@ import `in`.techrebounce.todonotes.utils.AppConstant
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -13,10 +14,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class AddNotesActivity : AppCompatActivity() {
 
@@ -24,8 +28,9 @@ class AddNotesActivity : AppCompatActivity() {
     lateinit var editTextDescription: EditText
     lateinit var buttonSubmit: Button
     lateinit var imageViewAdd: ImageView
-    val REQUEST_CODE_GALLERY = 2;
-    val REQUEST_CODE_CAMERA = 1;
+    val REQUEST_CODE_GALLERY = 2
+    val REQUEST_CODE_CAMERA = 1
+    val MY_PERMISSION_CODE = 123
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,10 +67,45 @@ class AddNotesActivity : AppCompatActivity() {
 
         imageViewAdd.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                setupDialog()
+                if (checkAndRequestPermission()) {
+                    setupDialog()
+                }
+
             }
 
         })
+    }
+
+    private fun checkAndRequestPermission(): Boolean {
+        val cameraPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+        val storagePermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        val listPermissionNeeded = ArrayList<String>()
+
+        if (cameraPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionNeeded.add(android.Manifest.permission.CAMERA)
+        }
+
+        if (storagePermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionNeeded.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+
+        if (listPermissionNeeded.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionNeeded.toTypedArray(), MY_PERMISSION_CODE)
+            return false
+        }
+        return true
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            MY_PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    setupDialog()
+                }
+            }
+        }
     }
 
     private fun setupDialog() {
