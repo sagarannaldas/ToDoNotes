@@ -33,4 +33,5 @@ ext {
     roomVersion = '2.2.5'
     kotlinVersion = "1.4.30"
     glideVersion = '4.12.0'
+    workVersion = "2.5.0"
 }

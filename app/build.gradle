@@ -62,6 +62,10 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
+    //Work Manager
+    implementation "androidx.work:work-runtime:$workVersion"
+
+
 }
 repositories {
     mavenCentral()
