@@ -2,12 +2,18 @@ package `in`.techrebounce.todonotes.view
 
 import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.utils.PrefConstant
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.media.RingtoneManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -21,6 +27,25 @@ class SplashActivity : AppCompatActivity() {
         setupSharedPrefernce()
         checkLoginStatus()
         getFCMToken()
+        setupNotification("This is local notification")
+    }
+
+    private fun setupNotification(body: String?) {
+        val channelId = "local ID"
+        val ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val notificationBuilder = NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentTitle("Todo NotesApp")
+                .setContentText(body)
+                .setSound(ringtone)
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, "Local Notes", NotificationManager.IMPORTANCE_HIGH)
+            notificationManager.createNotificationChannel(channel)
+        }
+        notificationManager.notify(0, notificationBuilder.build())
+
     }
 
     private fun getFCMToken() {
@@ -38,6 +63,7 @@ class SplashActivity : AppCompatActivity() {
             Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
         })
     }
+
 
     private fun setupSharedPrefernce() {
         sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, MODE_PRIVATE)
