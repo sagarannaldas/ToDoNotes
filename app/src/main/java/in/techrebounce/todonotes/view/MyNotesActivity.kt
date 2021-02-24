@@ -10,6 +10,7 @@ import `in`.techrebounce.todonotes.utils.AppConstant.IMAGE_PATH
 import `in`.techrebounce.todonotes.utils.AppConstant.TITLE
 import `in`.techrebounce.todonotes.utils.PrefConstant.FULL_NAME
 import `in`.techrebounce.todonotes.utils.PrefConstant.SHARED_PREFERENCE_NAME
+import `in`.techrebounce.todonotes.workmanager.MyWorker
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
@@ -19,7 +20,11 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.concurrent.TimeUnit
 
 public class MyNotesActivity : AppCompatActivity() {
 
@@ -43,7 +48,20 @@ public class MyNotesActivity : AppCompatActivity() {
         getDataFromDataBase()
         setupRecyclerView()
         setupToolbarText()
+        setupWorkManager()
+    }
 
+    private fun setupWorkManager() {
+        val constraints = Constraints.Builder()
+                .setRequiresBatteryNotLow(true)
+                .build()
+        val request = PeriodicWorkRequest
+                .Builder(MyWorker::class.java, 1, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .build()
+        WorkManager.getInstance(applicationContext).enqueue(request)
+//        WorkManager.getInstance(applicationContext).beginWith(request1,request2,request3).then(request5).enqueue()
+        // a -> b -> c
     }
 
     private fun setupToolbarText() {
