@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "334983002559",
+    "project_id": "todonotes-938f6",
+    "storage_bucket": "todonotes-938f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334983002559:android:a1cbd1e9326d64315b490a",
+        "android_client_info": {
+          "package_name": "in.techrebounce.todonotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334983002559-ofihbn184tt8iuqb62dmifmdfct8mh6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjOIP9fmNK1y9wJSmH8dlUE9vJEWJr65o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334983002559-ofihbn184tt8iuqb62dmifmdfct8mh6c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

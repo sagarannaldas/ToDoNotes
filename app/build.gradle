@@ -4,6 +4,7 @@ plugins {
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 
 android {
@@ -64,6 +65,14 @@ dependencies {
 
     //Work Manager
     implementation "androidx.work:work-runtime:$workVersion"
+
+    //Firebase
+    implementation platform("com.google.firebase:firebase-bom:$firebaseVersion")
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    // Declare the dependencies for the Firebase Cloud Messaging and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics'
 
 
 }

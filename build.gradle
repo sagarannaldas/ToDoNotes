@@ -8,6 +8,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.5'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -34,4 +35,5 @@ ext {
     kotlinVersion = "1.4.30"
     glideVersion = '4.12.0'
     workVersion = "2.5.0"
+    firebaseVersion = "26.5.0"
 }
