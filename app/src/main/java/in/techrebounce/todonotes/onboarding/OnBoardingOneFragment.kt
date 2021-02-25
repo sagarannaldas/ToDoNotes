@@ -1,6 +1,7 @@
 package `in`.techrebounce.todonotes.onboarding
 
 import `in`.techrebounce.todonotes.R
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,12 @@ import androidx.fragment.app.Fragment
 
 class OnBoardingOneFragment : Fragment() {
     lateinit var textViewNext: TextView
+    lateinit var onNextClick: OnNextClick
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        onNextClick = context as OnNextClick
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -24,6 +31,20 @@ class OnBoardingOneFragment : Fragment() {
 
     private fun bindViews(view: View) {
         textViewNext = view.findViewById(R.id.textViewNext)
+        clickListeners()
+    }
+
+    private fun clickListeners() {
+        textViewNext.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                onNextClick.onClick()
+            }
+
+        })
+    }
+
+    interface OnNextClick {
+        fun onClick()
     }
 
 }
