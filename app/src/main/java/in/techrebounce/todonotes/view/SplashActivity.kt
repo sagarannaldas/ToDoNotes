@@ -1,6 +1,7 @@
 package `in`.techrebounce.todonotes.view
 
 import `in`.techrebounce.todonotes.R
+import `in`.techrebounce.todonotes.onboarding.OnBoardingActivity
 import `in`.techrebounce.todonotes.utils.PrefConstant
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -71,12 +72,16 @@ class SplashActivity : AppCompatActivity() {
 
     private fun checkLoginStatus() {
         // If a user is loggedIn show them MyNotesActivity else show LoginActivity
-        var isLoggedIn = sharedPreferences.getBoolean(PrefConstant.IS_LOGGED_IN, false)
+        val isLoggedIn = sharedPreferences.getBoolean(PrefConstant.IS_LOGGED_IN, false)
+        val isBoardingSuccess = sharedPreferences.getBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY, false)
         if (isLoggedIn) {
             val intent = Intent(this@SplashActivity, MyNotesActivity::class.java)
             startActivity(intent)
-        } else {
+        } else if (isBoardingSuccess) {
             val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+            startActivity(intent)
+        } else {
+            val intent = Intent(this@SplashActivity, OnBoardingActivity::class.java)
             startActivity(intent)
         }
     }

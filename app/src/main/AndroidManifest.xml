@@ -16,12 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ToDoNotes">
-        <activity android:name=".onboarding.OnBoardingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".onboarding.OnBoardingActivity" />
         <activity android:name=".view.BlogActivity" />
 
         <provider
@@ -42,7 +37,12 @@
         </service>
 
         <activity android:name=".view.AddNotesActivity" />
-        <activity android:name=".view.SplashActivity" />
+        <activity android:name=".view.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.DetailActivity" />
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.MainActivity" />

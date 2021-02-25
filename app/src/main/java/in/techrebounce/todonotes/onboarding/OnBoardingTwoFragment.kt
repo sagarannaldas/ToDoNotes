@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 
 class OnBoardingTwoFragment : Fragment() {
-    lateinit var textViewNext: TextView
+    lateinit var textViewDone: TextView
     lateinit var textViewBack: TextView
     lateinit var onOptionClick: OnOptionClick
 
@@ -31,7 +31,7 @@ class OnBoardingTwoFragment : Fragment() {
     }
 
     private fun bindViews(view: View) {
-        textViewNext = view.findViewById(R.id.textViewNext)
+        textViewDone = view.findViewById(R.id.textViewDone)
         textViewBack = view.findViewById(R.id.textViewBack)
         clickListener()
     }
@@ -44,9 +44,9 @@ class OnBoardingTwoFragment : Fragment() {
 
         })
 
-        textViewNext.setOnClickListener(object : View.OnClickListener {
+        textViewDone.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                onOptionClick.onOptionNext()
+                onOptionClick.onOptionDone()
             }
 
         })
@@ -54,7 +54,7 @@ class OnBoardingTwoFragment : Fragment() {
 
     interface OnOptionClick {
         fun onOptionBack()
-        fun onOptionNext()
+        fun onOptionDone()
     }
 
 }
