@@ -15,6 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ToDoNotes">
+        <activity android:name=".view.BlogActivity"></activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -32,7 +34,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".view.AddNotesActivity"></activity>
+        <activity android:name=".view.AddNotesActivity" />
         <activity android:name=".view.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
