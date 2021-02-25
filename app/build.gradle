@@ -37,6 +37,7 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation 'androidx.room:room-runtime:2.2.6'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -75,7 +76,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
 
     //Using Fast Android Networking
-    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+    implementation "com.amitshekhar.android:android-networking:$networkingVersion"
+
+    //ViewPager
+    implementation "androidx.viewpager:viewpager:$viewPagerVersion"
 
 
 }

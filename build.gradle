@@ -36,4 +36,6 @@ ext {
     glideVersion = '4.12.0'
     workVersion = "2.5.0"
     firebaseVersion = "26.5.0"
+    networkingVersion = "1.0.2"
+    viewPagerVersion = "1.0.0"
 }
