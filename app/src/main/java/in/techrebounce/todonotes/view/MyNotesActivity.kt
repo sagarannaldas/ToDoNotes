@@ -8,12 +8,12 @@ import `in`.techrebounce.todonotes.db.Note
 import `in`.techrebounce.todonotes.utils.AppConstant.DESCRIPTION
 import `in`.techrebounce.todonotes.utils.AppConstant.IMAGE_PATH
 import `in`.techrebounce.todonotes.utils.AppConstant.TITLE
+import `in`.techrebounce.todonotes.utils.PrefConstant
 import `in`.techrebounce.todonotes.utils.PrefConstant.FULL_NAME
-import `in`.techrebounce.todonotes.utils.PrefConstant.SHARED_PREFERENCE_NAME
+import `in`.techrebounce.todonotes.utils.StoreSession
 import `in`.techrebounce.todonotes.workmanager.MyWorker
 import android.app.Activity
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -37,7 +37,8 @@ public class MyNotesActivity : AppCompatActivity() {
 
     var fullName: String = ""
     lateinit var fabAddNotes: FloatingActionButton
-    lateinit var sharedPreferences: SharedPreferences
+
+    //     lateinit var sharedPreferences: SharedPreferences
     lateinit var recyclerViewNotes: RecyclerView
     var notesList = ArrayList<Note>()
 
@@ -133,7 +134,8 @@ public class MyNotesActivity : AppCompatActivity() {
     }
 
     private fun setupSharedPreference() {
-        sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_NAME, MODE_PRIVATE)
+        StoreSession.init(this)
+//        sharedPreferences = getSharedPreferences(SHARED_PREFERENCE_NAME, MODE_PRIVATE)
     }
 
     private fun getIntentData() {
@@ -143,7 +145,8 @@ public class MyNotesActivity : AppCompatActivity() {
             fullName = intent.getStringExtra(FULL_NAME)
         }
         if (fullName.isEmpty()) {
-            fullName = sharedPreferences.getString(FULL_NAME, "").toString()
+            fullName = StoreSession.readString(PrefConstant.FULL_NAME).toString()
+//            fullName = sharedPreferences.getString(FULL_NAME, "").toString()
         }
     }
 

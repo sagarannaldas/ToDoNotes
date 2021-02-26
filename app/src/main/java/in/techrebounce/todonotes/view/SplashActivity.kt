@@ -3,11 +3,11 @@ package `in`.techrebounce.todonotes.view
 import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.onboarding.OnBoardingActivity
 import `in`.techrebounce.todonotes.utils.PrefConstant
+import `in`.techrebounce.todonotes.utils.StoreSession
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
@@ -19,7 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
 class SplashActivity : AppCompatActivity() {
-    lateinit var sharedPreferences: SharedPreferences
+    //    lateinit var sharedPreferences: SharedPreferences
     private val TAG = "SplashActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,17 +67,20 @@ class SplashActivity : AppCompatActivity() {
 
 
     private fun setupSharedPrefernce() {
-        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, MODE_PRIVATE)
+        StoreSession.init(this)
+//        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, MODE_PRIVATE)
     }
 
     private fun checkLoginStatus() {
         // If a user is loggedIn show them MyNotesActivity else show LoginActivity
-        val isLoggedIn = sharedPreferences.getBoolean(PrefConstant.IS_LOGGED_IN, false)
-        val isBoardingSuccess = sharedPreferences.getBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY, false)
-        if (isLoggedIn) {
+//        val isLoggedIn = sharedPreferences.getBoolean(PrefConstant.IS_LOGGED_IN, false)
+//        val isBoardingSuccess = sharedPreferences.getBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY, false)
+        val isLoggedIn = StoreSession.read(PrefConstant.IS_LOGGED_IN)
+        val isBoardingSuccess = StoreSession.read(PrefConstant.ON_BOARDED_SUCCESSFULLY)
+        if (isLoggedIn!!) {
             val intent = Intent(this@SplashActivity, MyNotesActivity::class.java)
             startActivity(intent)
-        } else if (isBoardingSuccess) {
+        } else if (isBoardingSuccess!!) {
             val intent = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(intent)
         } else {
