@@ -82,6 +82,7 @@ dependencies {
     implementation "androidx.viewpager:viewpager:$viewPagerVersion"
 
     //debug database and shared Preferences
+    //search for browser in logcat and paste the url to the browser
     debugImplementation "com.amitshekhar.android:debug-db:$debugDatabaseVersion"
 
 
