@@ -81,6 +81,9 @@ dependencies {
     //ViewPager
     implementation "androidx.viewpager:viewpager:$viewPagerVersion"
 
+    //debug database and shared Preferences
+    debugImplementation "com.amitshekhar.android:debug-db:$debugDatabaseVersion"
+
 
 }
 repositories {

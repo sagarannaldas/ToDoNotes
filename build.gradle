@@ -38,4 +38,5 @@ ext {
     firebaseVersion = "26.5.0"
     networkingVersion = "1.0.2"
     viewPagerVersion = "1.0.0"
+    debugDatabaseVersion = "1.0.6"
 }
