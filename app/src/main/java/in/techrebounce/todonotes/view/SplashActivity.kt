@@ -87,5 +87,6 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this@SplashActivity, OnBoardingActivity::class.java)
             startActivity(intent)
         }
+        finish()
     }
 }
