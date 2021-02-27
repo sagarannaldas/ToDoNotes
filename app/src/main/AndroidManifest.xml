@@ -39,7 +39,9 @@
         </service>
 
         <activity android:name=".view.AddNotesActivity" />
-        <activity android:name=".splash.SplashActivity">
+        <activity
+            android:name=".splash.SplashActivity"
+            android:theme="@style/NoToolbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
