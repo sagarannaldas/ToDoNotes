@@ -1,5 +1,7 @@
-package `in`.techrebounce.todonotes.onboarding
+package `in`.techrebounce.todonotes.onboarding.adapter
 
+import `in`.techrebounce.todonotes.onboarding.OnBoardingOneFragment
+import `in`.techrebounce.todonotes.onboarding.OnBoardingTwoFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter

@@ -1,6 +1,6 @@
 package `in`.techrebounce.todonotes
 
-import `in`.techrebounce.todonotes.db.NotesDatabase
+import `in`.techrebounce.todonotes.data.local.db.NotesDatabase
 import android.app.Application
 import com.androidnetworking.AndroidNetworking
 

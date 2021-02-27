@@ -1,4 +1,4 @@
-package `in`.techrebounce.todonotes.workmanager
+package `in`.techrebounce.todonotes.utils.workmanager
 
 import `in`.techrebounce.todonotes.NotesApp
 import android.content.Context

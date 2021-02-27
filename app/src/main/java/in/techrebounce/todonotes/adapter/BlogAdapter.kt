@@ -1,7 +1,7 @@
 package `in`.techrebounce.todonotes.adapter
 
 import `in`.techrebounce.todonotes.R
-import `in`.techrebounce.todonotes.model.Data
+import `in`.techrebounce.todonotes.data.remote.model.Data
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

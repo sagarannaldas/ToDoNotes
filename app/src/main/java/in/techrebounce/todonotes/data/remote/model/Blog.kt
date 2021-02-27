@@ -1,4 +1,4 @@
-package `in`.techrebounce.todonotes.model
+package `in`.techrebounce.todonotes.data.remote.model
 
 data class Blog(val status_code: String, val message: String, val data: List<Data>)
 

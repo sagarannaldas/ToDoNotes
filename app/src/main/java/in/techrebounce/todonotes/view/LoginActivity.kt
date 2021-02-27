@@ -1,9 +1,9 @@
 package `in`.techrebounce.todonotes.view
 
 import `in`.techrebounce.todonotes.R
-import `in`.techrebounce.todonotes.utils.PrefConstant
-import `in`.techrebounce.todonotes.utils.PrefConstant.FULL_NAME
-import `in`.techrebounce.todonotes.utils.StoreSession
+import `in`.techrebounce.todonotes.data.local.pref.PrefConstant
+import `in`.techrebounce.todonotes.data.local.pref.PrefConstant.FULL_NAME
+import `in`.techrebounce.todonotes.data.local.pref.StoreSession
 import android.content.Intent
 import android.os.Bundle
 import android.view.View

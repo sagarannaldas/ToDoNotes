@@ -1,4 +1,4 @@
-package `in`.techrebounce.todonotes.utils
+package `in`.techrebounce.todonotes.data.local.pref
 
 import android.content.Context
 import android.content.SharedPreferences

@@ -31,7 +31,7 @@
         </provider>
 
         <service
-            android:name=".fcm.MyFirebaseMessagingService"
+            android:name="in.techrebounce.todonotes.utils.fcm.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -39,7 +39,7 @@
         </service>
 
         <activity android:name=".view.AddNotesActivity" />
-        <activity android:name=".view.SplashActivity">
+        <activity android:name=".splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

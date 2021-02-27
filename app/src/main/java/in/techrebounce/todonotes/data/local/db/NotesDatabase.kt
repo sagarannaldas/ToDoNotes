@@ -1,4 +1,4 @@
-package `in`.techrebounce.todonotes.db
+package `in`.techrebounce.todonotes.data.local.db
 
 import android.content.Context
 import androidx.room.Database

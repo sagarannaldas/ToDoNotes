@@ -1,8 +1,9 @@
 package `in`.techrebounce.todonotes.onboarding
 
 import `in`.techrebounce.todonotes.R
-import `in`.techrebounce.todonotes.utils.PrefConstant
-import `in`.techrebounce.todonotes.utils.StoreSession
+import `in`.techrebounce.todonotes.data.local.pref.PrefConstant
+import `in`.techrebounce.todonotes.data.local.pref.StoreSession
+import `in`.techrebounce.todonotes.onboarding.adapter.FragmentAdapter
 import `in`.techrebounce.todonotes.view.LoginActivity
 import android.content.Intent
 import android.os.Bundle

@@ -1,9 +1,11 @@
-package `in`.techrebounce.todonotes.view
+package `in`.techrebounce.todonotes.splash
 
 import `in`.techrebounce.todonotes.R
+import `in`.techrebounce.todonotes.data.local.pref.PrefConstant
+import `in`.techrebounce.todonotes.data.local.pref.StoreSession
 import `in`.techrebounce.todonotes.onboarding.OnBoardingActivity
-import `in`.techrebounce.todonotes.utils.PrefConstant
-import `in`.techrebounce.todonotes.utils.StoreSession
+import `in`.techrebounce.todonotes.view.LoginActivity
+import `in`.techrebounce.todonotes.view.MyNotesActivity
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context

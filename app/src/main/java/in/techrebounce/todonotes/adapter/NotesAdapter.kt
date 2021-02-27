@@ -2,7 +2,7 @@ package `in`.techrebounce.todonotes.adapter
 
 import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.clicklisteners.ItemClickListener
-import `in`.techrebounce.todonotes.db.Note
+import `in`.techrebounce.todonotes.data.local.db.Note
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View

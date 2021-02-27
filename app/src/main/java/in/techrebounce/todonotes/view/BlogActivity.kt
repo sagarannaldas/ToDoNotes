@@ -2,7 +2,7 @@ package `in`.techrebounce.todonotes.view
 
 import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.adapter.BlogAdapter
-import `in`.techrebounce.todonotes.model.Blog
+import `in`.techrebounce.todonotes.data.remote.model.Blog
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity

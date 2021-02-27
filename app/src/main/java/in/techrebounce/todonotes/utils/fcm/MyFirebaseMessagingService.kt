@@ -1,4 +1,4 @@
-package `in`.techrebounce.todonotes.fcm
+package `in`.techrebounce.todonotes.utils.fcm
 
 import `in`.techrebounce.todonotes.R
 import android.app.NotificationChannel
