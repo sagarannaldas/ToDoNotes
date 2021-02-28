@@ -3,8 +3,8 @@ package `in`.techrebounce.todonotes.onboarding
 import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.data.local.pref.PrefConstant
 import `in`.techrebounce.todonotes.data.local.pref.StoreSession
+import `in`.techrebounce.todonotes.login.LoginActivity
 import `in`.techrebounce.todonotes.onboarding.adapter.FragmentAdapter
-import `in`.techrebounce.todonotes.view.LoginActivity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,10 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 
 class OnBoardingActivity : AppCompatActivity(), OnBoardingOneFragment.OnNextClick, OnBoardingTwoFragment.OnOptionClick {
 
-
     lateinit var viewPager2: ViewPager2
-//    lateinit var sharedPreferences: SharedPreferences
-//    lateinit var editor: SharedPreferences.Editor
 
     companion object {
         private const val FIRST_ITEM = 0
@@ -31,7 +28,6 @@ class OnBoardingActivity : AppCompatActivity(), OnBoardingOneFragment.OnNextClic
     }
 
     private fun setupSharedPreferences() {
-//        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, MODE_PRIVATE)
         StoreSession.init(this)
     }
 
@@ -51,9 +47,6 @@ class OnBoardingActivity : AppCompatActivity(), OnBoardingOneFragment.OnNextClic
 
     override fun onOptionDone() {
         StoreSession.write(PrefConstant.ON_BOARDED_SUCCESSFULLY, true)
-//        editor = sharedPreferences.edit()
-//        editor.putBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY, true)
-//        editor.apply()
 
         val intent = Intent(this@OnBoardingActivity, LoginActivity::class.java)
         startActivity(intent)

@@ -1,9 +1,10 @@
-package `in`.techrebounce.todonotes.view
+package `in`.techrebounce.todonotes.login
 
 import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.data.local.pref.PrefConstant
 import `in`.techrebounce.todonotes.data.local.pref.PrefConstant.FULL_NAME
 import `in`.techrebounce.todonotes.data.local.pref.StoreSession
+import `in`.techrebounce.todonotes.view.MyNotesActivity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,12 +14,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class LoginActivity : AppCompatActivity() {
-    private val TAG = "LoginActivity"
     lateinit var editTextFullName: EditText
     lateinit var editTextUserName: EditText
     lateinit var buttonlogin: Button
-//    lateinit var sharedPreferences: SharedPreferences
-//    lateinit var editor :SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,22 +52,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupSharedPreferences() {
         StoreSession.init(this)
-//        sharedPreferences =  getSharedPreferences(SHARED_PREFERENCE_NAME, MODE_PRIVATE)
     }
 
 
     private fun saveFullName(fullName: String) {
         StoreSession.write(PrefConstant.FULL_NAME, fullName)
-//        editor = sharedPreferences.edit()
-//        editor.putString(PrefConstant.FULL_NAME, fullName)
-//        editor.apply()
     }
 
     private fun saveLoginStatus() {
         StoreSession.write(PrefConstant.IS_LOGGED_IN, true)
-//        editor = sharedPreferences.edit()
-//        editor.putBoolean(IS_LOGGED_IN, true)
-//        editor.apply()
     }
 
 }

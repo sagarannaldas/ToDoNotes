@@ -9,4 +9,9 @@
     <string name="you_can_choose_image_for_every_todo_s">You Can Choose Image For Every ToDo's</string>
     <string name="done">Done</string>
     <string name="back">Back</string>
+    <string name="welcome">Welcome!</string>
+    <string name="plan_and_record_tasks_in_todo_notes_app">Plan and Record Tasks in Todo Notes App</string>
+    <string name="full_name">Full Name</string>
+    <string name="username">UserName</string>
+    <string name="login">Login</string>
 </resources>

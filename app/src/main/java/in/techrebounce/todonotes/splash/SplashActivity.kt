@@ -3,8 +3,8 @@ package `in`.techrebounce.todonotes.splash
 import `in`.techrebounce.todonotes.R
 import `in`.techrebounce.todonotes.data.local.pref.PrefConstant
 import `in`.techrebounce.todonotes.data.local.pref.StoreSession
+import `in`.techrebounce.todonotes.login.LoginActivity
 import `in`.techrebounce.todonotes.onboarding.OnBoardingActivity
-import `in`.techrebounce.todonotes.view.LoginActivity
 import `in`.techrebounce.todonotes.view.MyNotesActivity
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -22,7 +22,6 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
 class SplashActivity : AppCompatActivity() {
-    //    lateinit var sharedPreferences: SharedPreferences
     private val TAG = "SplashActivity"
     lateinit var handler: Handler
     lateinit var runnable: Runnable
@@ -82,13 +81,10 @@ class SplashActivity : AppCompatActivity() {
 
     private fun setupSharedPrefernce() {
         StoreSession.init(this)
-//        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, MODE_PRIVATE)
     }
 
     private fun checkLoginStatus() {
         // If a user is loggedIn show them MyNotesActivity else show LoginActivity
-//        val isLoggedIn = sharedPreferences.getBoolean(PrefConstant.IS_LOGGED_IN, false)
-//        val isBoardingSuccess = sharedPreferences.getBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY, false)
         val isLoggedIn = StoreSession.read(PrefConstant.IS_LOGGED_IN)
         val isBoardingSuccess = StoreSession.read(PrefConstant.ON_BOARDED_SUCCESSFULLY)
         if (isLoggedIn!!) {
