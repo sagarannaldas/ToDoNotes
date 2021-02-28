@@ -13,6 +13,7 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,14 +24,25 @@ import com.google.firebase.messaging.FirebaseMessaging
 class SplashActivity : AppCompatActivity() {
     //    lateinit var sharedPreferences: SharedPreferences
     private val TAG = "SplashActivity"
+    lateinit var handler: Handler
+    lateinit var runnable: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         setupSharedPrefernce()
-        checkLoginStatus()
+        goToNextScreen()
+
         getFCMToken()
         setupNotification("This is local notification")
+    }
+
+    private fun goToNextScreen() {
+        handler = Handler()
+        runnable = Runnable {
+            checkLoginStatus()
+        }
+        handler.postDelayed(runnable, 2000)
     }
 
     private fun setupNotification(body: String?) {
