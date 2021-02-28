@@ -8,13 +8,20 @@ import `in`.techrebounce.todonotes.view.LoginActivity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 
 
 class OnBoardingActivity : AppCompatActivity(), OnBoardingOneFragment.OnNextClick, OnBoardingTwoFragment.OnOptionClick {
-    lateinit var viewPager: ViewPager
+
+
+    lateinit var viewPager2: ViewPager2
 //    lateinit var sharedPreferences: SharedPreferences
 //    lateinit var editor: SharedPreferences.Editor
+
+    companion object {
+        private const val FIRST_ITEM = 0
+        private const val LAST_ITEM = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,17 +36,17 @@ class OnBoardingActivity : AppCompatActivity(), OnBoardingOneFragment.OnNextClic
     }
 
     private fun bindViews() {
-        viewPager = findViewById(R.id.viewPager2)
-        val adapter = FragmentAdapter(supportFragmentManager)
-        viewPager.adapter = adapter
+        viewPager2 = findViewById(R.id.viewPager2)
+        val adapter = FragmentAdapter(this)
+        viewPager2.adapter = adapter
     }
 
     override fun onClick() {
-        viewPager.currentItem = 1
+        viewPager2.currentItem = LAST_ITEM
     }
 
     override fun onOptionBack() {
-        viewPager.currentItem = 0
+        viewPager2.currentItem = FIRST_ITEM
     }
 
     override fun onOptionDone() {

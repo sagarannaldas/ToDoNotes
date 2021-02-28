@@ -78,8 +78,8 @@ dependencies {
     //Using Fast Android Networking
     implementation "com.amitshekhar.android:android-networking:$networkingVersion"
 
-    //ViewPager
-    implementation "androidx.viewpager:viewpager:$viewPagerVersion"
+    //ViewPager2
+    implementation "androidx.viewpager2:viewpager2:$viewPagerVersion"
 
     //debug database and shared Preferences
     //search for browser in logcat and paste the url to the browser
